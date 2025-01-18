@@ -19,7 +19,7 @@ class CharacterImportPage {
             __('Rick and Morty Import', RICK_MORTY_TEXT_DOMAIN),
             __('Rick and Morty Import', RICK_MORTY_TEXT_DOMAIN),
             'manage_options',
-            RICK_MORTY_PREFIX.'chracter-import',
+            RICK_MORTY_PREFIX.'character-import',
             [$this, 'render_import_page'],
             'dashicons-admin-generic'
         );
@@ -56,9 +56,9 @@ class CharacterImportPage {
         }
     }
 
-    public function enqueue_scripts($hook)
+    public function enqueue_scripts($hook_suffix)
     {
-        if ('toplevel_page_rick-morty-import' !== $hook) {
+        if ('toplevel_page_'.RICK_MORTY_TEXT_DOMAIN.'character-import' !== $hook_suffix) {
             return;
         }
         wp_enqueue_script(RICK_MORTY_PREFIX.'import-js', plugin_dir_url(__FILE__) . 'js/import.js', ['jquery'], null, true);
