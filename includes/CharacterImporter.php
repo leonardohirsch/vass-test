@@ -3,7 +3,7 @@
 namespace VassRickMorty\Includes;
 
 class CharacterImporter extends ImporterBase {
-    private static $_post_type = 'character';
+    protected static string $post_type = 'character';
     
     //TODO: crear página para definir option
     public function __construct() {
@@ -13,7 +13,7 @@ class CharacterImporter extends ImporterBase {
 
     protected function process_item($character)
     {
-        if ($this->items_exists(self::$_post_type, $character['id'])) {
+        if ($this->items_exists($character['id'])) {
             error_log('Character already imported: ' . $character['name']);
             return;
         }
@@ -21,7 +21,7 @@ class CharacterImporter extends ImporterBase {
         $post_id = wp_insert_post([
             'post_title'    => $character['name'],
             'post_status'   => 'publish',
-            'post_type'     => self::$_post_type,
+            'post_type'     => self::$post_type,
             'meta_input'    => [
                 'id'        => $character['id'],
                 'status'    => $character['status'],
