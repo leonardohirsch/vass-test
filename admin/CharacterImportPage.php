@@ -15,6 +15,10 @@ class CharacterImportPage {
 
     public function add_import_page()
     {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
         add_menu_page(
             __('Rick and Morty Import', RICK_MORTY_TEXT_DOMAIN),
             __('Rick and Morty Import', RICK_MORTY_TEXT_DOMAIN),
