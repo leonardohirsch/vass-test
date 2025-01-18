@@ -40,7 +40,7 @@ class CharacterImportPage {
                 <?php esc_html_e('Import Characters', RICK_MORTY_TEXT_DOMAIN); ?>
             </button>
             <div id="import-loading-message" class="notice notice-info" style="display: none;">
-                <?php esc_html_e('Loading...', RICK_MORTY_TEXT_DOMAIN); ?>
+                <p><?php esc_html_e('Loading...', RICK_MORTY_TEXT_DOMAIN); ?></p>
             </div>
             <div id="import-messages"></div>
         </div>
