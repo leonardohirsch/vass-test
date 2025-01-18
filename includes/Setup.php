@@ -23,7 +23,7 @@ class Setup {
     public static function add_admin_pages()
     {
         self::admin_import_page(); 
-        self::admin_settings_page();   
+        self::admin_import_settings_page();   
     }
 
     public static function admin_import_page()
@@ -34,8 +34,10 @@ class Setup {
         $importPage->init();          
     }
 
-    public static function admin_settings_page()
+    public static function admin_import_settings_page()
     {
+        $setting_page = new VassRickMorty\Admin\ImportSettingPage();
+        $setting_page->register_settings();
 
     }
 
