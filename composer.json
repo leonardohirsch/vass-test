@@ -1,0 +1,17 @@
+{
+  "name": "leonardo/vass-rick-morty",
+  "description": "Vass Technical Test",
+  "require": {
+    "php": ">=8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "VassRickMorty\\Includes\\": "includes/",
+      "VassRickMorty\\Admin\\": "admin/",
+      "VassRickMorty\\Public\\": "public/"
+    }
+  },
+  "scripts": {
+    "lint": "phpcs --standard=WordPress admin/ public/ includes/"
+  }
+}
