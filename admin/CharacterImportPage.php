@@ -7,7 +7,9 @@ use VassRickMorty\Includes\ImporterBase;
 class CharacterImportPage {
 
     public function __construct(private ImporterBase $importer)
-    {
+    {}
+
+    public function init() {
         add_action('admin_menu', [$this, 'add_import_page']);
         add_action('wp_ajax_import_characters', [$this, 'handle_import_request']);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
