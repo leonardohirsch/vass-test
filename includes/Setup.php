@@ -22,17 +22,10 @@ class Setup {
 
     public static function add_admin_menu()
     {
-        if (current_user_can('manage_options'))
-        {
-            add_menu_page(
-                __('Rick and Morty Import', RICK_MORTY_TEXT_DOMAIN),
-                __('Rick and Morty Import', RICK_MORTY_TEXT_DOMAIN),
-                'manage_options',
-                'rick-morty-import',
-                [self::class, 'admin_settings_page'],
-                'dashicons-admin-generic',
-            );
-
+        if (current_user_can('manage_options')) {
+            new VassRickMorty\Admin\CharacterImportPage(
+                new VassRickMorty\Includes\CharacterImporter()
+            );            
         }        
     }
 

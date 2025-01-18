@@ -9,7 +9,7 @@ abstract class ImporterBase {
         protected string $api_url
     ) {}
 
-    public function import_data()
+    public function import_data(): array
     {
         $endpoint_url = $this->ensure_api_url_format();
 
@@ -21,7 +21,12 @@ abstract class ImporterBase {
 
         $page_to_fetch = intdiv($item_count, 20) + 1;
         $data = $this->fetch_page_from_api($endpoint_url, $page_to_fetch);
-        if ($data === null || !is_array($data)) return;
+        if (isset($data['fetch_error'])) {
+            return [
+                'error' => true,
+                'message' => __('Failed to import characters', RICK_MORTY_TEXT_DOMAIN) . ': '. $data['fetch_error']
+            ];
+        } 
 
         if ($item_count < $data['info']['count']) {
             $this->process_api_data($data['results']);
@@ -29,6 +34,8 @@ abstract class ImporterBase {
             $new_posts = $this->count_posts($item_count);
             $this->update_cache_item_count($cache_count_name, $item_count + $new_posts);
         }
+
+        return ['success' => true];
     }    
 
     protected function items_exists(string|int $api_id)
@@ -64,18 +71,20 @@ abstract class ImporterBase {
         return $url;
     }
 
-    protected function fetch_page_from_api(string $endpoint_url, string|int $page): ?array
+    protected function fetch_page_from_api(string $endpoint_url, string|int $page): array
     {
         $response = wp_remote_get($endpoint_url . '?page=' . $page);
         if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
-            error_log('Error fetching data: ' . wp_remote_retrieve_response_message($response));
-            return null;
+            $error_msg = __('Error fetching data: ' . wp_remote_retrieve_response_message($response), RICK_MORTY_TEXT_DOMAIN);
+            error_log($error_msg);
+            return ['fetch_error' => $error_msg];
         }
 
         $data = json_decode(wp_remote_retrieve_body($response), true);
         if (!isset($data['results']) || !isset($data['info'])) {
-            error_log('Invalid API response');
-            return null;
+            $error_msg = __('Invalid API response', RICK_MORTY_TEXT_DOMAIN);
+            error_log($error_msg);
+            return ['fetch_error' => $error_msg];
         }
         return $data;
     }

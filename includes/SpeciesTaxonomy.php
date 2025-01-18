@@ -5,7 +5,7 @@ namespace VassRickMorty\Includes;
 class SpeciesTaxonomy extends TaxonomyBase {
     public function __construct()
     {
-        $taxonomy = 'rick-morty-species';
+        $taxonomy = RICK_MORTY_PREFIX.'species';
         $object_type = ['character'];
         $args = [
             'labels' => [
