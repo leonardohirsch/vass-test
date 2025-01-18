@@ -98,7 +98,7 @@ abstract class ImporterBase {
 
     protected function update_cache_item_count(string $cache_count_name, int $new_count)
     {
-        $transient_duration = get_option(static::$post_type . '_transient_duration', 30 * DAY_IN_SECONDS);
+        $transient_duration = get_option(RICK_MORTY_PREFIX . 'count_cache_expires', 30 * DAY_IN_SECONDS);
         set_transient($cache_count_name, $new_count, $transient_duration);
     }
 

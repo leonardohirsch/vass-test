@@ -8,7 +8,7 @@ class CharacterImporter extends ImporterBase {
     //TODO: crear página para definir option
     public function __construct()
     {
-        $api_url = get_option('rick_morty_characters_endpoint', 'https://rickandmortyapi.com/api/character/');
+        $api_url = get_option(RICK_MORTY_PREFIX.'characters_api', 'https://rickandmortyapi.com/api/character/');
         parent::__construct($api_url);
     }
 

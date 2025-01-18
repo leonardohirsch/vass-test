@@ -26,12 +26,12 @@ class CharacterImportPage {
             __('Rick and Morty Import', RICK_MORTY_TEXT_DOMAIN),
             'manage_options',
             RICK_MORTY_PREFIX.'character-import',
-            [$this, 'render_import_page'],
+            [$this, 'render_page'],
             'dashicons-admin-generic'
         );
     }
 
-    public function render_import_page()
+    public function render_page()
     {
         ?>
         <div class="wrap">
