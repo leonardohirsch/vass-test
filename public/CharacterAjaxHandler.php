@@ -13,7 +13,7 @@ class CharacterAjaxHandler extends EntityAjaxHandlerBase {
     }
 
     public function handleLoading() {
-        if (check_ajax_referer('load_rick_morty_nonce', 'nonce', false)) {
+        if (check_ajax_referer('load_rick_morty_nonce')) {
             wp_send_json_error(['message' => __('Unauthorized request.', RICK_MORTY_TEXT_DOMAIN)]);
         }
         $name = sanitize_text_field($_POST['name'] ?? '');
@@ -29,6 +29,10 @@ class CharacterAjaxHandler extends EntityAjaxHandlerBase {
             $tax_query
         );
         
-        wp_send_json(['posts' => $posts]);
+        if (empty($posts)) {
+            wp_send_json_error(['message' => __('No characters found.', RICK_MORTY_TEXT_DOMAIN)]);
+        } else {
+            wp_send_json(['posts' => $posts]);
+        }
     }
 }
