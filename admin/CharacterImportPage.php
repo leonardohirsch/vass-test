@@ -44,7 +44,10 @@ class CharacterImportPage {
 
     public function handle_import_request()
     {
-        if (!check_ajax_referer('import_characters_nonce')) {
+        if (
+            !check_ajax_referer('import_characters_nonce') ||
+            !current_user_can('manage_options')
+        ) {
             wp_send_json_error(['message' => __('Unauthorized request.', RICK_MORTY_TEXT_DOMAIN)]);
         }        
 
