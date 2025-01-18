@@ -73,6 +73,6 @@ class Setup {
 
     public static function register_taxonomy()
     {
-        new VassRickMorty\Includes\CharacterTaxonomy();
+        new VassRickMorty\Includes\SpeciesTaxonomy();
     }
 }
