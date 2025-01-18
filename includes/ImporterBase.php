@@ -13,7 +13,7 @@ abstract class ImporterBase {
     {
         $endpoint_url = $this->ensure_api_url_format();
 
-        $cache_count_name = self::$post_type . '_count';
+        $cache_count_name = static::$post_type . '_count';
         $item_count = get_transient($cache_count_name);
         if ($item_count === false) {
             $item_count = $this->count_posts();
@@ -34,7 +34,7 @@ abstract class ImporterBase {
     protected function items_exists(string|int $api_id)
     {
         $query = new \WP_Query([
-            'post_type'      => self::$post_type,
+            'post_type'      => static::$post_type,
             'meta_key'       => 'id',
             'meta_value'     => $api_id,
             'posts_per_page' => 1
@@ -46,7 +46,7 @@ abstract class ImporterBase {
     protected function count_posts(int $offset = 0)
     {
         $query = new \WP_Query([
-            'post_type' => self::$post_type,
+            'post_type' => static::$post_type,
             'posts_per_page' => -1,
             'fields' => 'ids',
             'offset' => $offset
@@ -89,7 +89,7 @@ abstract class ImporterBase {
 
     protected function update_cache_item_count(string $cache_count_name, int $new_count)
     {
-        $transient_duration = get_option(self::$post_type . '_transient_duration', 30 * DAY_IN_SECONDS);
+        $transient_duration = get_option(static::$post_type . '_transient_duration', 30 * DAY_IN_SECONDS);
         set_transient($cache_count_name, $new_count, $transient_duration);
     }
 

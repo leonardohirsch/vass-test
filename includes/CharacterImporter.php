@@ -3,17 +3,18 @@
 namespace VassRickMorty\Includes;
 
 class CharacterImporter extends ImporterBase {
-    protected static string $post_type = 'character';
+    protected static string $post_type = RICK_MORTY_PREFIX.'character';
     
     //TODO: crear página para definir option
-    public function __construct() {
+    public function __construct()
+    {
         $api_url = get_option('rick_morty_characters_endpoint', 'https://rickandmortyapi.com/api/character/');
         parent::__construct($api_url);
     }
 
     protected function process_item($character)
     {
-        if ($this->items_exists($character['id'])) {
+        if ($this->items_exists(static::$post_type, $character['id'])) {
             error_log('Character already imported: ' . $character['name']);
             return;
         }
@@ -21,7 +22,7 @@ class CharacterImporter extends ImporterBase {
         $post_id = wp_insert_post([
             'post_title'    => $character['name'],
             'post_status'   => 'publish',
-            'post_type'     => self::$post_type,
+            'post_type'     => static::$post_type,
             'meta_input'    => [
                 'id'        => $character['id'],
                 'status'    => $character['status'],

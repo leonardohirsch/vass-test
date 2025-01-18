@@ -12,6 +12,7 @@ if (!defined('ABSPATH')) {
 }
 
 define('RICK_MORTY_TEXT_DOMAIN', 'vass-rick-morty');
+define('RICK_MORTY_PREFIX', 'vass-rick-morty-');
 
 require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 
