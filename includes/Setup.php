@@ -29,7 +29,6 @@ class Setup {
 
     public static function admin_import_page()
     {
-
         $importer = new CharacterImporter();
         $importPage = new \VassRickMorty\Admin\CharacterImportPage($importer);
         $importPage->init();          
@@ -37,7 +36,6 @@ class Setup {
 
     public static function admin_import_settings_page()
     {
-        error_log('admin_import_settings_page');
         $setting_page = new \VassRickMorty\Admin\ImportSettingPage();
         $setting_page->register_settings();
 

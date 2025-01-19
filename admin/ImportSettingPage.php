@@ -5,12 +5,13 @@ namespace VassRickMorty\Admin;
 class ImportSettingPage {
     public function __construct()
     {
-        add_action('admin_menu', [$this, 'add_import_settings_page']);
+        add_action('admin_menu', [$this, 'add_import_settings_page'], 12);
     }
 
     public function add_import_settings_page()
     {
-        add_options_page(
+        add_submenu_page(
+            RICK_MORTY_PREFIX . 'character-import', 
             __('Rick and Morty Import Settings', RICK_MORTY_TEXT_DOMAIN),
             __('Import Settings', RICK_MORTY_TEXT_DOMAIN),
             'manage_options',
@@ -23,6 +24,7 @@ class ImportSettingPage {
         ?>
         <div class="wrap">
             <h1><?php esc_html_e('Rick and Morty API Settings', RICK_MORTY_TEXT_DOMAIN); ?></h1>
+            <?php settings_errors(); ?>
             <form method="post" action="options.php">
                 <?php
                 settings_fields(RICK_MORTY_TEXT_DOMAIN.'options_group');
@@ -34,17 +36,18 @@ class ImportSettingPage {
         <?php
     }
 
-    public function register_settings() {
+    public function register_settings()
+    {
         add_action('admin_init', function() {
-            register_setting(RICK_MORTY_TEXT_DOMAIN.'options_group', 'rick_morty_api_url', [
+            register_setting(RICK_MORTY_TEXT_DOMAIN.'options_group', RICK_MORTY_PREFIX . 'characters_api', [
                 'type' => 'string',
-                'sanitize_callback' => 'esc_url_raw',
-                'default' => 'https://rickandmortyapi.com/api/'
+                'sanitize_callback' => [$this, 'validate_api_url'],
+                'default' => 'https://rickandmortyapi.com/api/character/'
             ]);
 
             register_setting(RICK_MORTY_TEXT_DOMAIN.'options_group', RICK_MORTY_PREFIX . 'count_cache_expires', [
                 'type' => 'integer',
-                'sanitize_callback' => 'absint',
+                'sanitize_callback' => [$this, 'validate_cache_expires'],   
                 'default' => 30 * DAY_IN_SECONDS
             ]);
 
@@ -77,5 +80,37 @@ class ImportSettingPage {
                 RICK_MORTY_PREFIX . 'api_settings' 
             );
         });
+    }
+
+    public function validate_api_url($input)
+    {
+        if (empty($input)) {
+            add_settings_error(
+                RICK_MORTY_PREFIX . 'characters_api',
+                'characters_api_empty',
+                'The Characters API URL cannot be empty.', 
+                'error'
+            );
+
+    
+            return get_option(RICK_MORTY_PREFIX . 'characters_api');
+        }
+
+        return esc_url_raw($input);
+    }
+
+    public function validate_cache_expires($input)
+    {
+        if (empty($input) || !is_numeric($input) || (int)$input <= 0) {
+            add_settings_error(
+                RICK_MORTY_PREFIX . 'count_cache_expires',
+                'count_cache_expires_empty',
+                'The cache expiry time cannot be empty and must be a positive integer.',
+                'error'
+            );
+            return get_option(RICK_MORTY_PREFIX . 'count_cache_expires');
+        }
+        
+        return absint($input);
     }
 }

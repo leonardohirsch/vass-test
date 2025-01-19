@@ -10,7 +10,7 @@ class CharacterImportPage {
     {}
 
     public function init() {
-        add_action('admin_menu', [$this, 'add_import_page']);
+        add_action('admin_menu', [$this, 'add_import_page'], 11);
         add_action('wp_ajax_import_characters', [$this, 'handle_import_request']);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
     }
@@ -22,12 +22,21 @@ class CharacterImportPage {
         }
 
         add_menu_page(
-            __('Rick and Morty Import', RICK_MORTY_TEXT_DOMAIN),
-            __('Rick and Morty Import', RICK_MORTY_TEXT_DOMAIN),
+            __('Rick and Morty API Import', RICK_MORTY_TEXT_DOMAIN),
+            __('Rick and Morty', RICK_MORTY_TEXT_DOMAIN),
             'manage_options',
             RICK_MORTY_PREFIX . 'character-import',
             [$this, 'render_page'],
             'dashicons-admin-generic'
+        );
+
+        add_submenu_page(
+            RICK_MORTY_PREFIX . 'character-import',
+            __('Rick and Morty API Import', RICK_MORTY_TEXT_DOMAIN),
+            __('Import Characters', RICK_MORTY_TEXT_DOMAIN),
+            'manage_options',
+            RICK_MORTY_PREFIX . 'character-import',
+            [$this, 'render_page'],
         );
     }
 
