@@ -1,6 +1,8 @@
 jQuery(document).ready(function ($) {
   $("#rick-morty-character-form").on("submit", function (e) {
     e.preventDefault();
+    $("#rick-morty-search-notice").hide();
+    $("#rick-morty-load-more").hide();
 
     var searchParams = {
       action: "load_characters",
@@ -22,18 +24,16 @@ jQuery(document).ready(function ($) {
             contentHtml += rm_generateCharacterHtml(post);
           });
           $("#rick-morty-character-list").html(contentHtml);
+          $("#rick-morty-load-more").show();
         } else {
-          $("#rick-morty-character-list").html(
-            "<div class='notice notice-info'><p>" +
-              response.data.message +
-              "</p></div>"
-          );
+          $("#rick-morty-character-list").html("");
+          $("#rick-morty-search-notice").text(response.data.message);
+          $("#rick-morty-search-notice").show();
         }
       },
       error: function () {
-        $("#rick-morty-characters-list").html(
-          "<div class='notice notice-error'><p>Error loading characters.</p></div>"
-        );
+        $("#rick-morty-search-notice").text("Error loading characters.");
+        $("#rick-morty-search-notice").show();
       },
     });
   });
@@ -63,18 +63,16 @@ jQuery(document).ready(function ($) {
           $("#rick-morty-character-list").append(contentHtml);
           button.data("page", page + 1);
         } else {
-          $("#rick-morty-character-list").append(
-            "<div class='notice notice-info'><p>" +
-              (response.data.message || "No more characters to load.") +
-              "</p></div>"
+          $("#rick-morty-search-notice").text(
+            response.data.message || "No more characters to load."
           );
+          $("#rick-morty-search-notice").show();
           button.hide();
         }
       },
       error: function () {
-        $("#rick-morty-character-list").append(
-          "<div class='notice notice-error'><p>Error loading more characters.</p></div>"
-        );
+        $("#rick-morty-search-notice").text("Error loading more characters.");
+        $("#rick-morty-search-notice").show();
       },
     });
   });

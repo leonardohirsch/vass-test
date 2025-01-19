@@ -42,10 +42,17 @@
                         <?php endif; ?>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>No characters found.</p>
+            <?php endforeach; ?>            
         <?php endif; ?>
     </div>
-    <button id="rick-morty-load-more" data-page="2">Load More</button>
+    <div id="rick-morty-search-notice" class="notice notice-info">
+        <?php if (empty($initial_posts)): ?>
+                No characters found.
+        <?php endif; ?> 
+     </div>  
+    <button id="rick-morty-load-more" data-page="2"
+        <?php if (empty($initial_posts)): ?>
+            style="display: none;"
+        <?php endif; ?>
+    >Load More</button> 
 </div>
