@@ -5,7 +5,7 @@ jQuery(document).ready(function ($) {
     $("#rick-morty-load-more").hide();
 
     var searchParams = {
-      action: "load_characters",
+      action: rmAjax.rm_action,
       _ajax_nonce: rmAjax.nonce,
       name: $('input[name="name"]').val(),
       species: $('select[name="species"]').val(),
@@ -43,7 +43,7 @@ jQuery(document).ready(function ($) {
     var page = button.data("page");
 
     var moreParams = {
-      action: "load_characters",
+      action: rmAjax.rm_action,
       _ajax_nonce: rmAjax.nonce,
       name: $('input[name="name"]').val(),
       species: $('select[name="species"]').val(),

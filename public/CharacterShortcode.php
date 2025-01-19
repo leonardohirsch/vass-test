@@ -31,6 +31,7 @@ class CharacterShortcode {
             wp_enqueue_script(RICK_MORTY_PREFIX . 'characters-ajax', plugin_dir_url(__FILE__) . 'js/rm-characters-shortcode.js', ['jquery'], null, true);
             wp_localize_script(RICK_MORTY_PREFIX . 'characters-ajax', 'rmAjax', [
                 'ajaxurl' => admin_url('admin-ajax.php'),
+                'rm_action' => "load_characters",
                 'nonce' => wp_create_nonce('load_rick_morty_nonce')
             ]);
 

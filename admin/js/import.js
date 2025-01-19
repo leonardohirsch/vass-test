@@ -9,7 +9,7 @@ jQuery(document).ready(function ($) {
       type: "POST",
       dataType: "json",
       data: {
-        action: "import_characters",
+        action: rickMortyAjax.rm_action,
         _ajax_nonce: rickMortyAjax.nonce,
       },
       success: function (response) {

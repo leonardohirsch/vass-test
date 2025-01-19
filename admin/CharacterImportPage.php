@@ -58,6 +58,7 @@ class CharacterImportPage {
         wp_enqueue_script(RICK_MORTY_PREFIX . 'import-js', plugin_dir_url(__FILE__) . 'js/import.js', ['jquery'], null, true);
         wp_localize_script(RICK_MORTY_PREFIX . 'import-js', 'rickMortyAjax', [
             'ajaxurl' => admin_url('admin-ajax.php'),
+            'rm_action' => "import_characters",
             'nonce' => wp_create_nonce('import_characters_nonce')
         ]);
     }
