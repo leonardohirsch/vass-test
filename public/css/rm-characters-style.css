@@ -1,0 +1,73 @@
+#rick-morty-character-search {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+#rick-morty-character-form {
+  margin-bottom: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-field label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-field input,
+.form-field select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#rick-morty-character-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.entry-card {
+  flex: 1 1 250px; /* Asegura que las tarjetas sean responsivas y se ajusten bien */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.entry-card-image {
+  width: 100%;
+  height: auto;
+}
+
+.entry-card-details {
+  padding: 10px;
+}
+
+.entry-card-title {
+  margin: 10px 0 5px;
+  font-size: 1.2em;
+}
+
+.entry-card-meta {
+  font-size: 0.9em;
+  color: #666;
+}
+
+#rick-morty-load-more {
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  background-color: #0073aa;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+}
