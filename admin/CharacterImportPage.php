@@ -2,14 +2,30 @@
 
 namespace VassRickMorty\Admin;
 
+/**
+ * Class CharacterImportPage
+ *
+ * This class handles the import page for Rick and Morty characters.
+ */
 class CharacterImportPage {
 
-    public function init() {
+    /**
+     * Call hooks to initialize the character import page.
+     *
+     * @return void
+     */
+    public function init() : void
+    {
         add_action('admin_menu', [$this, 'add_import_page'], 11);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
     }
 
-    public function add_import_page()
+    /**
+     * Add the Characters import page to the admin menu.
+     *
+     * @return void
+     */
+    public function add_import_page() : void
     {
         if (!current_user_can('manage_options')) {
             return;
@@ -34,7 +50,12 @@ class CharacterImportPage {
         );
     }
 
-    public function render_page()
+    /**
+     * Renders the Characters import page.
+     *
+     * @return void
+     */
+    public function render_page() : void
     {
         ?>
         <div class="wrap">
@@ -50,7 +71,12 @@ class CharacterImportPage {
         <?php
     }
 
-    public function enqueue_scripts($hook_suffix)
+    /**
+     * Loads and handles the ajax script for the Characters import page.
+     *
+     * @return void
+     */
+    public function enqueue_scripts($hook_suffix) : void
     {
         if ('toplevel_page_'.RICK_MORTY_PREFIX.'character-import' !== $hook_suffix) {
             return;

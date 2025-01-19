@@ -49,7 +49,7 @@ class Setup {
 
     public static function frontend_init()
     {        
-        $query_handler = new \VassRickMorty\Public\EntityQueryHandler();
+        $query_handler = new \VassRickMorty\Public\CptQueryHandler();
         $ajax_handler = new \VassRickMorty\Public\CharacterAjax($query_handler);
         $ajax_handler->init();
         $character_shortcode = new \VassRickMorty\Public\CharacterShortcode($query_handler);

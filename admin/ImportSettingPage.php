@@ -2,13 +2,27 @@
 
 namespace VassRickMorty\Admin;
 
+/**
+ * Class ImportSettingPage
+ *
+ * This class handles the import settings page for the Rick and Morty plugin.
+ */
 class ImportSettingPage {
+    /**
+     * ImportSettingPage constructor.
+     * Adds the import settings page to the admin menu.
+     */
     public function __construct()
     {
         add_action('admin_menu', [$this, 'add_import_settings_page'], 12);
     }
 
-    public function add_import_settings_page()
+    /**
+     * Adds the import settings page to the admin menu.
+     * 
+     * @return void
+     */
+    public function add_import_settings_page() : void
     {
         add_submenu_page(
             RICK_MORTY_PREFIX . 'character-import', 
@@ -20,7 +34,13 @@ class ImportSettingPage {
         );
     }
 
-    public function render_page() {
+    /**
+     * Renders the import settings page.
+     * 
+     * @return void
+     */
+    public function render_page() : void
+    {
         ?>
         <div class="wrap">
             <h1><?php esc_html_e('Rick and Morty API Settings', RICK_MORTY_TEXT_DOMAIN); ?></h1>
@@ -36,7 +56,13 @@ class ImportSettingPage {
         <?php
     }
 
-    public function register_settings()
+    
+    /**
+     * Registers the import options.
+     * 
+     * @return void
+     */
+    public function register_settings() : void
     {
         add_action('admin_init', function() {
             register_setting(RICK_MORTY_TEXT_DOMAIN.'options_group', RICK_MORTY_PREFIX . 'characters_api', [
@@ -82,6 +108,11 @@ class ImportSettingPage {
         });
     }
 
+    
+    /**
+     * Sanitizes callback for the api url field.
+     * 
+     */
     public function validate_api_url($input)
     {
         if (empty($input)) {
@@ -99,6 +130,10 @@ class ImportSettingPage {
         return esc_url_raw($input);
     }
 
+    /**
+     * Sanitizes callback for the cache expiration field.
+     * 
+     */
     public function validate_cache_expires($input)
     {
         if (empty($input) || !is_numeric($input) || (int)$input <= 0) {
