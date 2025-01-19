@@ -2,8 +2,6 @@
 
 namespace VassRickMorty\Includes;
 
-use VassRickMorty\Includes\ImporterBase;
-
 class CharacterImporter extends ImporterBase {
     protected static string $post_type = RICK_MORTY_PREFIX . 'character';
     

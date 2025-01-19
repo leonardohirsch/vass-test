@@ -30,14 +30,15 @@ class Setup {
     public static function admin_import_page()
     {
 
-        $importer = new VassRickMorty\Includes\CharacterImporter();
-        $importPage = new VassRickMorty\Admin\CharacterImportPage($importer);
+        $importer = new CharacterImporter();
+        $importPage = new \VassRickMorty\Admin\CharacterImportPage($importer);
         $importPage->init();          
     }
 
     public static function admin_import_settings_page()
     {
-        $setting_page = new VassRickMorty\Admin\ImportSettingPage();
+        error_log('admin_import_settings_page');
+        $setting_page = new \VassRickMorty\Admin\ImportSettingPage();
         $setting_page->register_settings();
 
     }
@@ -61,11 +62,11 @@ class Setup {
 
     public static function register_custom_post_type()
     {
-        new VassRickMorty\Includes\CharacterCPT();
+        new CharacterCPT();
     }
 
     public static function register_taxonomy()
     {
-        new VassRickMorty\Includes\SpeciesTaxonomy();
+        new SpeciesTaxonomy();
     }
 }

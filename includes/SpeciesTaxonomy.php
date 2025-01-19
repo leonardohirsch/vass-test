@@ -2,8 +2,6 @@
 
 namespace VassRickMorty\Includes;
 
-use VassRickMorty\Includes\TaxonomyBase;
-
 class SpeciesTaxonomy extends TaxonomyBase {
     public function __construct()
     {

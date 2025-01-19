@@ -2,8 +2,6 @@
 
 namespace VassRickMorty\Public;
 
-use VassRickMorty\Public\EntityAjaxHandlerBase;
-
 class CharacterAjaxHandler extends EntityAjaxHandlerBase {
 
     public function execute()

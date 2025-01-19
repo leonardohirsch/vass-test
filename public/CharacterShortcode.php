@@ -2,8 +2,6 @@
 
 namespace VassRickMorty\Public;
 
-use VassRickMorty\Public\EntityQueryHandler;
-
 class CharacterShortcode {
 
     public function __construct(private EntityQueryHandler $queryHandler) 
@@ -14,7 +12,8 @@ class CharacterShortcode {
         add_shortcode('rick_morty_characters', [$this, 'renderShortcode']);
     }
 
-    public function renderShortcode() {
+    public function renderShortcode()
+    {
         $species_options = $this->queryHandler->getTaxOptions('species');
         $initial_posts = $this->queryHandler->fetchEntity(RICK_MORTY_PREFIX . 'character');
         ob_start();
