@@ -17,6 +17,7 @@ class Setup {
         add_action('plugins_loaded', [self::class, 'load_textdomain']);
         add_action('init', [self::class, 'register_custom_post_type']);
         add_action('init', [self::class, 'register_taxonomy']);
+        add_action('init', [self::class, 'frontend_init']);
         add_action('admin_menu', [self::class, 'add_admin_pages']);
     }
 
@@ -39,6 +40,17 @@ class Setup {
         $setting_page = new VassRickMorty\Admin\ImportSettingPage();
         $setting_page->register_settings();
 
+    }
+
+    public static function frontend_init()
+    {
+        if (!is_admin()) {
+            $query_handler = new \VassRickMorty\Public\EntityQueryHandler();
+            $character_shortcode = new \VassRickMorty\Public\CharacterShortcode($query_handler);
+            $character_shortcode->execute();
+            $ajax_handler = new \VassRickMorty\Public\CharacterAjaxHandler($query_handler);
+            $ajax_handler->execute();       
+        }        
     }
 
 
