@@ -5,7 +5,6 @@ namespace VassRickMorty\Includes;
 class CharacterImporter extends ImporterBase {
     protected static string $post_type = RICK_MORTY_PREFIX . 'character';
     
-    //TODO: crear página para definir option
     public function __construct()
     {
         $api_url = get_option(RICK_MORTY_PREFIX . 'characters_api', 'https://rickandmortyapi.com/api/character/');
