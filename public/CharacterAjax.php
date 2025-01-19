@@ -2,16 +2,15 @@
 
 namespace VassRickMorty\Public;
 
-class CharacterAjaxHandler extends EntityAjaxHandlerBase {
+class CharacterAjax extends EntityAjaxHandlerBase {
 
-    public function execute()
-    {
-        add_action('wp_ajax_load_characters', [$this, 'handleLoading']);
-        add_action('wp_ajax_nopriv_load_characters', [$this, 'handleLoading']);
+    public function init() {
+        add_action('wp_ajax_load_characters', [$this, 'handle_loading']);
+        add_action('wp_ajax_nopriv_load_characters', [$this, 'handle_loading']);
     }
 
-    public function handleLoading() {
-        if (check_ajax_referer('load_rick_morty_nonce')) {
+    public function handle_loading() {
+        if (!check_ajax_referer('load_rick_morty_nonce')) {
             wp_send_json_error(['message' => __('Unauthorized request.', RICK_MORTY_TEXT_DOMAIN)]);
         }
         $name = sanitize_text_field($_POST['name'] ?? '');

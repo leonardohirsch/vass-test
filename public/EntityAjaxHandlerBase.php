@@ -4,10 +4,10 @@ namespace VassRickMorty\Public;
 
 abstract class EntityAjaxHandlerBase {
 
-    public function __construct(private EntityQueryHandler $queryHandler)
+    public function __construct(protected EntityQueryHandler $queryHandler)
     {}
 
-    abstract public function execute();
+    abstract public function init();
    
-    abstract public function handleLoading();
+    abstract public function handle_loading();
 }

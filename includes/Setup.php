@@ -49,14 +49,12 @@ class Setup {
     }
 
     public static function frontend_init()
-    {
-        if (!is_admin()) {
-            $query_handler = new \VassRickMorty\Public\EntityQueryHandler();
-            $character_shortcode = new \VassRickMorty\Public\CharacterShortcode($query_handler);
-            $character_shortcode->execute();
-            $ajax_handler = new \VassRickMorty\Public\CharacterAjaxHandler($query_handler);
-            $ajax_handler->execute();       
-        }        
+    {        
+        $query_handler = new \VassRickMorty\Public\EntityQueryHandler();
+        $ajax_handler = new \VassRickMorty\Public\CharacterAjax($query_handler);
+        $ajax_handler->init();
+        $character_shortcode = new \VassRickMorty\Public\CharacterShortcode($query_handler);
+        $character_shortcode->execute(); 
     }
 
 
