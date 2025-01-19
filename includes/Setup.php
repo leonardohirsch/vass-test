@@ -18,7 +18,15 @@ class Setup {
         add_action('init', [self::class, 'register_custom_post_type']);
         add_action('init', [self::class, 'register_taxonomy']);
         add_action('init', [self::class, 'frontend_init']);
+        add_action('admin_init', [self::class, 'add_admin_ajax']);        
         add_action('admin_menu', [self::class, 'add_admin_pages']);
+    }
+
+    public static function add_admin_ajax()
+    {
+       $importer = new CharacterImporter();
+       $character_ajax_handler = new \VassRickMorty\Admin\CharacterAjax($importer);
+       $character_ajax_handler->init(); 
     }
 
     public static function add_admin_pages()
@@ -28,10 +36,9 @@ class Setup {
     }
 
     public static function admin_import_page()
-    {
-        $importer = new CharacterImporter();
-        $importPage = new \VassRickMorty\Admin\CharacterImportPage($importer);
-        $importPage->init();          
+    {        
+        $import_page = new \VassRickMorty\Admin\CharacterImportPage();
+        $import_page->init();           
     }
 
     public static function admin_import_settings_page()

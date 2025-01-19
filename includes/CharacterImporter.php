@@ -14,6 +14,7 @@ class CharacterImporter extends ImporterBase {
 
     protected function process_item($character)
     {
+        error_log('Processing character: ' . $character['name']);
         if ($this->items_exists(static::$post_type, $character['id'])) {
             error_log('Character already imported: ' . $character['name']);
             return;

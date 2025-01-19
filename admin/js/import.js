@@ -27,7 +27,7 @@ jQuery(document).ready(function ($) {
           );
         }
       },
-      error: function (xhr, status, error) {
+      error: function (xhr) {
         var errorMessage = xhr.status + ": " + xhr.statusText;
         $("#import-messages").html(
           '<div class="notice notice-error is-dismissible"><p>' +
