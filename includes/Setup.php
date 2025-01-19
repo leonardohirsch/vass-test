@@ -67,7 +67,7 @@ class Setup {
 
     public static function register_custom_post_type()
     {
-        new CharacterCPT();
+        CharacterCPT::register_cpt();
     }
 
     public static function register_taxonomy()

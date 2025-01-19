@@ -14,24 +14,21 @@ class CharacterImporter extends ImporterBase {
 
     protected function process_item($character)
     {
-        error_log('Processing character: ' . $character['name']);
         if ($this->items_exists(static::$post_type, $character['id'])) {
             error_log('Character already imported: ' . $character['name']);
             return;
         }
 
         $post_id = wp_insert_post([
-            'post_title'    => $character['name'],
+            'post_title'    => sanitize_text_field($character['name']),
             'post_status'   => 'publish',
             'post_type'     => static::$post_type,
             'meta_input'    => [
-                'id'        => $character['id'],
-                'status'    => $character['status'],
-                'species'   => $character['species'],
-                'gender'    => $character['gender'],
-                'image'     => $character['image'],
-                'origin'    => $character['origin']['name'],
-                'location'  => $character['location']['name']
+                'id'        => sanitize_text_field($character['id']),
+                'status'    => sanitize_text_field($character['status']),
+                'species'   => sanitize_text_field($character['species']),
+                'gender'    => sanitize_text_field($character['gender']),
+                'image'     => sanitize_text_field($character['image']),
             ]
         ]);
 

@@ -10,12 +10,7 @@ namespace VassRickMorty\Includes;
 class CharacterCPT {
     protected static string $post_type = RICK_MORTY_PREFIX . 'character';
     
-    public function __construct()
-    {
-        add_action('init', [$this, 'register_character_cpt']);
-    }
-
-    public function register_character_cpt()
+    public static function register_cpt()
     {
         $labels = [
             'name'                  => __('Characters', RICK_MORTY_TEXT_DOMAIN),
@@ -40,16 +35,16 @@ class CharacterCPT {
             'show_ui'            => true,
             'show_in_menu'       => true,
             'query_var'          => true,
-            'rewrite'            => ['slug' => static::$post_type],
+            'rewrite'            => ['slug' => self::$post_type],
             'capability_type'    => 'post',
             'has_archive'        => false,
             'hierarchical'       => false,
             'menu_position'      => null,
-            'supports'           => ['title', 'thumbnail', 'custom-fields'],
+            'supports'           => ['title', 'custom-fields'],
             'show_in_rest'       => true, 
         ];
 
-        register_post_type(static::$post_type, $args);
+        register_post_type(self::$post_type, $args);
     }
 }
 
