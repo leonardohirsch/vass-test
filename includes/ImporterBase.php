@@ -18,7 +18,7 @@ abstract class ImporterBase {
         if ($item_count === false) {
             $item_count = $this->count_posts();
         }
-
+        
         $page_to_fetch = intdiv($item_count, 20) + 1;
         $data = $this->fetch_page_from_api($endpoint_url, $page_to_fetch);
         if (isset($data['fetch_error'])) {

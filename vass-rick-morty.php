@@ -4,6 +4,7 @@
  * Description: A plugin to manage characters from The Rick and Morty API.
  * Version: 1.0
  * Author: Vass
+ * PHP Version: 8.0
  */
 
  // Exit if accessed directly

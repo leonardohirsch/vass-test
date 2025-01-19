@@ -10,12 +10,12 @@ namespace VassRickMorty\Includes;
 class CharacterCPT {
     protected static string $post_type = RICK_MORTY_PREFIX . 'character';
     
-    public static function register_cpt()
+    public static function register()
     {
         $labels = [
-            'name'                  => __('Characters', RICK_MORTY_TEXT_DOMAIN),
+            'name'                  => __('Rick And Morty Characters', RICK_MORTY_TEXT_DOMAIN),
             'singular_name'         => __('Character', RICK_MORTY_TEXT_DOMAIN),
-            'menu_name'             => __('Characters', RICK_MORTY_TEXT_DOMAIN),
+            'menu_name'             => __('Rick And Morty Characters', RICK_MORTY_TEXT_DOMAIN),
             'name_admin_bar'        => __('Character', RICK_MORTY_TEXT_DOMAIN),
             'add_new'               => __('Add New', RICK_MORTY_TEXT_DOMAIN),
             'add_new_item'          => __('Add New Character', RICK_MORTY_TEXT_DOMAIN),
@@ -45,6 +45,21 @@ class CharacterCPT {
         ];
 
         register_post_type(self::$post_type, $args);
+        add_action('delete_post', [self::class, 'update_post_count_cache_on_delete']);
+    }
+
+    public static function update_post_count_cache_on_delete($post_id)
+    {
+        if (get_post_type($post_id) === self::$post_type) {
+            
+            $cache_count_name = self::$post_type . '_count';
+            $item_count = get_transient($cache_count_name);
+            if ($item_count !== false) {
+                $new_count = $item_count - 1;
+                $new_count = $new_count < 0 ? 0 : $new_count;
+                set_transient($cache_count_name, $new_count);
+            } 
+        }
     }
 }
 

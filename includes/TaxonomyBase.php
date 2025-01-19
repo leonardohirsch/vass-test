@@ -13,11 +13,9 @@ class TaxonomyBase {
         protected array $object_type,
         protected array $args
     )
-    {
-        add_action('init', [$this, 'register_taxonomy']);
-    }
+    {}
 
-    public function register_taxonomy()
+    public function register()
     {
         register_taxonomy($this->taxonomy, $this->object_type, $this->args);
     }

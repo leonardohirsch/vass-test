@@ -17,7 +17,7 @@ class CharacterImportPage {
 
         add_menu_page(
             __('Rick and Morty API Import', RICK_MORTY_TEXT_DOMAIN),
-            __('Rick and Morty', RICK_MORTY_TEXT_DOMAIN),
+            __('Rick and Morty API', RICK_MORTY_TEXT_DOMAIN),
             'manage_options',
             RICK_MORTY_PREFIX . 'character-import',
             [$this, 'render_page'],

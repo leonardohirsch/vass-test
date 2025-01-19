@@ -67,11 +67,12 @@ class Setup {
 
     public static function register_custom_post_type()
     {
-        CharacterCPT::register_cpt();
+        CharacterCPT::register();
     }
 
     public static function register_taxonomy()
     {
-        new SpeciesTaxonomy();
+        $species_tax = new SpeciesTaxonomy();
+        $species_tax->register();
     }
 }
