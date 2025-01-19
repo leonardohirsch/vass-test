@@ -14,7 +14,7 @@ class CharacterAjax extends EntityAjaxHandlerBase {
             wp_send_json_error(['message' => __('Unauthorized request.', RICK_MORTY_TEXT_DOMAIN)]);
         }
         $name = sanitize_text_field($_POST['name'] ?? '');
-        $meta_query = !empty($name) ? [['key' => 'name', 'value' => $name, 'compare' => 'LIKE']] : [];
+        // $meta_query = !empty($name) ? [['key' => 'name', 'value' => $name, 'compare' => 'LIKE']] : [];
         $species = sanitize_text_field($_POST['species'] ?? '');
         $tax_query = !empty($species) ? [['taxonomy' => RICK_MORTY_PREFIX . 'species', 'field' => 'name', 'terms' => $species]] : [];
         $page = intval(sanitize_text_field($_POST['page']) ?? 1);
@@ -22,7 +22,8 @@ class CharacterAjax extends EntityAjaxHandlerBase {
         $posts = $this->queryHandler->fetchEntity(
             RICK_MORTY_PREFIX . 'character',
             $page,
-            $meta_query,
+            $name,
+            [],
             $tax_query
         );
         
