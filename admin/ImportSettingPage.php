@@ -14,7 +14,7 @@ class ImportSettingPage {
             __('Rick and Morty Import Settings', RICK_MORTY_TEXT_DOMAIN),
             __('Import Settings', RICK_MORTY_TEXT_DOMAIN),
             'manage_options',
-            RICK_MORTY_PREFIX.'import-settings',
+            RICK_MORTY_PREFIX . 'import-settings',
             [$this, 'render_page']
         );
     }
@@ -26,7 +26,7 @@ class ImportSettingPage {
             <form method="post" action="options.php">
                 <?php
                 settings_fields(RICK_MORTY_TEXT_DOMAIN.'options_group');
-                do_settings_sections(RICK_MORTY_PREFIX.'import-settings');
+                do_settings_sections(RICK_MORTY_PREFIX . 'import-settings');
                 submit_button();
                 ?>
             </form>
@@ -49,21 +49,21 @@ class ImportSettingPage {
             ]);
 
             add_settings_section(
-                RICK_MORTY_PREFIX.'api_settings',
+                RICK_MORTY_PREFIX . 'api_settings',
                 __('API Settings', RICK_MORTY_TEXT_DOMAIN),
                 function() { echo '<p>' . esc_html__('Configure Rick and Morty API settings.', RICK_MORTY_TEXT_DOMAIN) . '</p>'; },
-                RICK_MORTY_PREFIX.'import-settings'
+                RICK_MORTY_PREFIX . 'import-settings'
             );
 
             add_settings_field(
-                RICK_MORTY_PREFIX.'characters_api_field',
+                RICK_MORTY_PREFIX . 'characters_api_field',
                 __('Characters API Endpoint URL', RICK_MORTY_TEXT_DOMAIN), 
                 function() {
-                    $url = get_option(RICK_MORTY_PREFIX.'characters_api', 'https://rickandmortyapi.com/api/character/');
+                    $url = get_option(RICK_MORTY_PREFIX . 'characters_api', 'https://rickandmortyapi.com/api/character/');
                     echo '<input type="url" id="' . RICK_MORTY_PREFIX . 'characters_api" name="' . RICK_MORTY_PREFIX . 'characters_api" value="' . esc_attr($url) . '" />';
                 },
-                RICK_MORTY_PREFIX.'import-settings',
-                RICK_MORTY_PREFIX.'api_settings'
+                RICK_MORTY_PREFIX . 'import-settings',
+                RICK_MORTY_PREFIX . 'api_settings'
             );
 
             add_settings_field(
@@ -73,8 +73,8 @@ class ImportSettingPage {
                     $expires = get_option(RICK_MORTY_PREFIX . 'count_cache_expires', 30 * DAY_IN_SECONDS);
                     echo '<input type="number" id="' . RICK_MORTY_PREFIX . 'count_cache_expires" name="' . RICK_MORTY_PREFIX . 'count_cache_expires" value="' . esc_attr($expires) . '" min="60" />';
                 }, 
-                RICK_MORTY_PREFIX.'import-settings', 
-                RICK_MORTY_PREFIX.'api_settings' 
+                RICK_MORTY_PREFIX . 'import-settings', 
+                RICK_MORTY_PREFIX . 'api_settings' 
             );
         });
     }

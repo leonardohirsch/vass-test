@@ -7,7 +7,7 @@ use VassRickMorty\Includes\TaxonomyBase;
 class SpeciesTaxonomy extends TaxonomyBase {
     public function __construct()
     {
-        $taxonomy = RICK_MORTY_PREFIX.'species';
+        $taxonomy = RICK_MORTY_PREFIX . 'species';
         $object_type = ['character'];
         $args = [
             'labels' => [

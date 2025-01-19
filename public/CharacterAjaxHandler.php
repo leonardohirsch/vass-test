@@ -23,7 +23,7 @@ class CharacterAjaxHandler extends EntityAjaxHandlerBase {
         $page = intval(sanitize_text_field($_POST['page']) ?? 1);
 
         $posts = $this->queryHandler->fetchEntity(
-            RICK_MORTY_PREFIX.'character',
+            RICK_MORTY_PREFIX . 'character',
             $page,
             $meta_query,
             $tax_query

@@ -8,7 +8,7 @@ namespace VassRickMorty\Includes;
  * This class registers the custom post type for Characters.
  */
 class CharacterCPT {
-    protected static string $post_type = RICK_MORTY_PREFIX.'character';
+    protected static string $post_type = RICK_MORTY_PREFIX . 'character';
     
     public function __construct()
     {
