@@ -25,11 +25,10 @@ jQuery(document).ready(function ($) {
         } else {
           $("#rick-morty-character-list").html(
             "<div class='notice notice-info'><p>" +
-              response.message +
+              response.data.message +
               "</p></div>"
           );
         }
-        $("#rick-morty-load-more").data("page", 2);
       },
       error: function () {
         $("#rick-morty-characters-list").html(
@@ -45,7 +44,7 @@ jQuery(document).ready(function ($) {
 
     var moreParams = {
       action: "load_characters",
-      nonce: rmAjax.nonce,
+      _ajax_nonce: rmAjax.nonce,
       name: $('input[name="name"]').val(),
       species: $('select[name="species"]').val(),
       page: page,
@@ -66,7 +65,7 @@ jQuery(document).ready(function ($) {
         } else {
           $("#rick-morty-character-list").append(
             "<div class='notice notice-info'><p>" +
-              (response.message || "No more characters to load.") +
+              (response.data.message || "No more characters to load.") +
               "</p></div>"
           );
           button.hide();

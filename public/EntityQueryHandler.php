@@ -32,7 +32,7 @@ class EntityQueryHandler {
              $args['tax_query'] = $taxQuery;
         }
         if (!empty($searchTitle)) {
-            $args['search_title'] = $searchTitle;
+            $args['search_title'] = trim($searchTitle);
         }
         $query = new \WP_Query($args);
         $posts = [];

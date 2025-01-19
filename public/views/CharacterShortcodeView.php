@@ -47,5 +47,5 @@
             <p>No characters found.</p>
         <?php endif; ?>
     </div>
-    <button id="rick-morty-load-more" data-page="1">Load More</button>
+    <button id="rick-morty-load-more" data-page="2">Load More</button>
 </div>
