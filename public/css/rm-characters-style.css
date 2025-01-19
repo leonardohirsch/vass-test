@@ -1,3 +1,7 @@
+#rick-morty-character-form {
+  margin-bottom: 20px;
+}
+
 #rick-morty-character-search {
   display: flex;
   flex-direction: column;
@@ -8,8 +12,25 @@
   background: #fff;
 }
 
-#rick-morty-character-form {
-  margin-bottom: 20px;
+#rick-morty-character-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+#rick-morty-load-more {
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  background-color: #0073aa;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+}
+
+#rick-morty-search-notice {
+  font-weight: bold;
+  margin: 20px auto;
 }
 
 .form-field {
@@ -28,12 +49,6 @@
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-#rick-morty-character-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
 }
 
 .entry-card {
@@ -60,19 +75,4 @@
 .entry-card-meta {
   font-size: 0.9em;
   color: #666;
-}
-
-#rick-morty-load-more {
-  padding: 10px 20px;
-  margin-top: 20px;
-  cursor: pointer;
-  background-color: #0073aa;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-}
-
-#rick-morty-search-notice {
-  font-weight: bold;
-  margin: 20px auto;
 }
