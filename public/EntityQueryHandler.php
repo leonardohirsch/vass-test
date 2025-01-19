@@ -4,7 +4,7 @@ namespace VassRickMorty\Public;
 
 class EntityQueryHandler {
     public function getTaxOptions(string $taxonomy) {
-        $terms = get_terms(['taxonomy' => $taxonomy, 'hide_empty' => false]);
+        $terms = get_terms(['taxonomy' => RICK_MORTY_PREFIX . $taxonomy, 'hide_empty' => false]);
         return array_map(fn($term) => $term->name, $terms);
     }
 

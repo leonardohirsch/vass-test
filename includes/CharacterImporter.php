@@ -34,8 +34,8 @@ class CharacterImporter extends ImporterBase {
 
         if (!is_wp_error($post_id)) {
             if (isset($character['species'])) {
-                wp_set_object_terms($post_id, $character['species'], 'species', false);
-            }            
+                wp_set_object_terms($post_id, $character['species'], RICK_MORTY_PREFIX . 'species', false);
+             }            
         } else {
             error_log('Failed to create character: ' . $character['name']);
         }

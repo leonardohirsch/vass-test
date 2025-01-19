@@ -17,7 +17,7 @@ class CharacterAjaxHandler extends EntityAjaxHandlerBase {
         $name = sanitize_text_field($_POST['name'] ?? '');
         $meta_query = !empty($name) ? [['key' => 'name', 'value' => $name, 'compare' => 'LIKE']] : [];
         $species = sanitize_text_field($_POST['species'] ?? '');
-        $tax_query = !empty($species) ? [['taxonomy' => 'species', 'field' => 'name', 'terms' => $species]] : [];
+        $tax_query = !empty($species) ? [['taxonomy' => RICK_MORTY_PREFIX . 'species', 'field' => 'name', 'terms' => $species]] : [];
         $page = intval(sanitize_text_field($_POST['page']) ?? 1);
 
         $posts = $this->queryHandler->fetchEntity(
