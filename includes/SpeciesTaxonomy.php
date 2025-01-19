@@ -2,10 +2,18 @@
 
 namespace VassRickMorty\Includes;
 
+/**
+ * Class SpeciesTaxonomy
+ *
+ * This class handles the taxonomy for species in the Rick and Morty plugin.
+ */
 class SpeciesTaxonomy extends TaxonomyBase {
+    /**
+     * SpeciesTaxonomy constructor.
+     */
     public function __construct()
     {
-        $taxonomy = RICK_MORTY_PREFIX . 'species';
+        $taxonomy_name = RICK_MORTY_PREFIX . 'species';
         $object_type = ['character'];
         $args = [
             'labels' => [
@@ -20,6 +28,6 @@ class SpeciesTaxonomy extends TaxonomyBase {
             'show_in_rest' => true
         ];
 
-        parent::__construct($taxonomy, $object_type, $args);
+        parent::__construct($taxonomy_name, $object_type, $args);
     }
 }

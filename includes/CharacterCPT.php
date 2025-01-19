@@ -10,7 +10,12 @@ namespace VassRickMorty\Includes;
 class CharacterCPT {
     protected static string $post_type = RICK_MORTY_PREFIX . 'character';
     
-    public static function register()
+    /**
+     * Registers the custom post type for Characters.
+     * 
+     * @return void
+     */
+    public static function register() : void
     {
         $labels = [
             'name'                  => __('Rick And Morty Characters', RICK_MORTY_TEXT_DOMAIN),
@@ -45,11 +50,23 @@ class CharacterCPT {
         ];
 
         register_post_type(self::$post_type, $args);
-        add_action('delete_post', [self::class, 'update_post_count_cache_on_delete']);
+
+        add_action('delete_post', [self::class, 'update_post_count_on_delete']);
     }
 
-    public static function update_post_count_cache_on_delete($post_id)
+    /**
+     * Updates total posts count cache when a post is deleted.
+     *
+     * This method is triggered when a post is deleted and updates the post count
+     * for the custom post type 'character'.
+     *
+     * @param int $post_id The ID of the post being deleted.
+     * 
+     * @return void
+     */
+    public static function update_post_count_on_delete( int $post_id ) : void
     {
+        
         if (get_post_type($post_id) === self::$post_type) {
             
             $cache_count_name = self::$post_type . '_count';

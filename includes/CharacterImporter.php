@@ -2,16 +2,29 @@
 
 namespace VassRickMorty\Includes;
 
+/**
+ * Class CharacterImporter
+ *
+ * This class is responsible for importing characters from the Rick and Morty API.
+ */
 class CharacterImporter extends ImporterBase {
     protected static string $post_type = RICK_MORTY_PREFIX . 'character';
     
+    /**
+     * CharacterImporter constructor.
+     */
     public function __construct()
     {
         $api_url = get_option(RICK_MORTY_PREFIX . 'characters_api', 'https://rickandmortyapi.com/api/character/');
         parent::__construct($api_url);
     }
 
-    protected function process_item($character)
+    /**
+     * Saves a single character item.
+     *
+     * @param array $character The character data.
+     */
+    protected function save_item( array $character )
     {
         if ($this->items_exists(static::$post_type, $character['id'])) {
             error_log('Character already imported: ' . $character['name']);

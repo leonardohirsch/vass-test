@@ -8,15 +8,29 @@ namespace VassRickMorty\Includes;
  * This is base clase for registering custom taxonomies.
  */
 class TaxonomyBase {
+    
+    /**
+     * Constructor for the TaxonomyBase class.
+     *
+     * @param string $taxonomy_name The taxonomy name.
+     * @param array $object_type The object type(s) for the taxonomy.
+     * @param array $args The arguments for registering the taxonomy.
+     */
     public function __construct(
-        protected string $taxonomy,
+        protected string $taxonomy_name,
         protected array $object_type,
         protected array $args
-    )
-    {}
+    ) {
+        
+    }
 
-    public function register()
+    /**
+     * Register the custom taxonomy.
+     *
+     * @return void
+     */
+    public function register() : void
     {
-        register_taxonomy($this->taxonomy, $this->object_type, $this->args);
+        register_taxonomy($this->taxonomy_name, $this->object_type, $this->args);
     }
 }

@@ -10,7 +10,7 @@ namespace VassRickMorty\Includes;
 class Setup {
 
     /**
-     * Initialize the setup by registering custom post types and taxonomies.
+     * Initialize the plugin setup
      */
     public static function run()
     {
@@ -45,7 +45,6 @@ class Setup {
     {
         $setting_page = new \VassRickMorty\Admin\ImportSettingPage();
         $setting_page->register_settings();
-
     }
 
     public static function frontend_init()
@@ -70,7 +69,7 @@ class Setup {
 
     public static function register_taxonomy()
     {
-        $species_tax = new SpeciesTaxonomy();
-        $species_tax->register();
+        $species_taxonomy = new SpeciesTaxonomy();
+        $species_taxonomy->register();
     }
 }

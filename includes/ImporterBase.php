@@ -2,13 +2,28 @@
 
 namespace VassRickMorty\Includes;
 
+/**
+ * Base class for importing data from an API.
+ */
 abstract class ImporterBase {
     protected static string $post_type = '';
 
+    /**
+     * Constructor for the ImporterBase class.
+     *
+     * @param string $api_url The API URL to fetch data from.
+     */
     public function __construct(
         protected string $api_url
-    ) {}
+    ) {
 
+    }
+
+    /**
+     * Imports data from the API.
+     *
+     * @return array The result of the import operation.
+     */
     public function import_data(): array
     {
         $endpoint_url = $this->ensure_api_url_format();
@@ -16,7 +31,7 @@ abstract class ImporterBase {
         $cache_count_name = static::$post_type . '_count';
         $item_count = get_transient($cache_count_name);
         if ($item_count === false) {
-            $item_count = $this->count_posts();
+            $item_count = $this->count_posts_in_database();
         }
         
         $page_to_fetch = intdiv($item_count, 20) + 1;
@@ -31,14 +46,21 @@ abstract class ImporterBase {
         if ($item_count < $data['info']['count']) {
             $this->process_api_data($data['results']);
 
-            $new_posts = $this->count_posts($item_count);
+            $new_posts = $this->count_posts_in_database($item_count);
             $this->update_cache_item_count($cache_count_name, $item_count + $new_posts);
         }
 
         return ['success' => true];
     }    
 
-    protected function items_exists(string|int $api_id)
+    /**
+     * Checks if an item exists based on the API ID.
+     *
+     * @param string|int $api_id The API ID of the item.
+     * 
+     * @return bool True if the item exists, false otherwise.
+     */
+    protected function items_exists(string|int $api_id) : bool
     {
         $query = new \WP_Query([
             'post_type'      => static::$post_type,
@@ -50,7 +72,14 @@ abstract class ImporterBase {
         return $query->have_posts();
     }
 
-    protected function count_posts(int $offset = 0)
+    /**
+     * Counts the number of posts in the database.
+     *
+     * @param int $offset The offset for the query.
+     * 
+     * @return int The number of posts found.
+     */
+    protected function count_posts_in_database(int $offset = 0) : int
     {
         $query = new \WP_Query([
             'post_type' => static::$post_type,
@@ -62,6 +91,11 @@ abstract class ImporterBase {
         return $query->found_posts;
     }
 
+    /**
+     * Ensures the API URL ends with a slash .
+     *
+     * @return string The formatted API URL.
+     */
     protected function ensure_api_url_format(): string
     {
         $url = $this->api_url;
@@ -71,7 +105,15 @@ abstract class ImporterBase {
         return $url;
     }
 
-    protected function fetch_page_from_api(string $endpoint_url, string|int $page): array
+    /**
+     * Fetches a page of data from the API.
+     *
+     * @param string $endpoint_url The endpoint URL to fetch data from.
+     * @param string|int $page The page number to fetch.
+     * 
+     * @return array The fetched data or an error message.
+     */
+    protected function fetch_page_from_api(string $endpoint_url, string|int $page) : array
     {
         $response = wp_remote_get($endpoint_url . '?page=' . $page);
         if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
@@ -89,18 +131,41 @@ abstract class ImporterBase {
         return $data;
     }
 
-    protected function process_api_data(array $items)
+    /**
+     * Processes the API data.
+     *
+     * @param array $items The items to process.
+     * 
+     * @return void
+     */
+    protected function process_api_data(array $items) : void
     {
         foreach ($items as $item) {
-            $this->process_item($item);
+            $this->save_item($item);
         }
     }
 
-    protected function update_cache_item_count(string $cache_count_name, int $new_count)
+    /**
+     * Updates the cache item count.
+     *
+     * @param string $cache_count_name The name of the cache count.
+     * @param int $new_count The new count to update.
+     * 
+     * @return void
+     */
+    protected function update_cache_item_count(
+        string $cache_count_name,
+        int $new_count
+    ) : void
     {
         $transient_duration = get_option(RICK_MORTY_PREFIX . 'count_cache_expires', 30 * DAY_IN_SECONDS);
         set_transient($cache_count_name, $new_count, $transient_duration);
     }
 
-    abstract protected function process_item($item);
+    /**
+     * Saves a single item from the API.
+     *
+     * @param array $item The item to save.
+     */
+    abstract protected function save_item( array $item );
 }
